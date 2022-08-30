@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Remove *anything* from V2Ray Links</title>
+</head>
+<body style="text-align: center;font-family: sans-serif;">
+	<h3>Remove *anything* from V2Ray Links</h3>
+	<p>This page allow you to replace all the words that you entered from V2ray Links.</p>
+	<p><b>VMESS</b> link supported!</p>
+	<label>
+		<input type="text" id="originalText" placeholder="originalText">
+		<input type="text" id="replacedText" placeholder="replacedText">
+	</label>
+	<br><br>
+	<label for="rawData"><textarea name="rawData" id="rawData" cols="100" rows="20" placeholder="enter your client link. or sub link, we will request it."></textarea></label>
+	<br>
+	<button onclick="
+		remove(
+			'rawData',
+		  document.getElementById('originalText'),
+		  document.getElementById('replacedText')
+		);
+	">Remove!</button>
+</body>
+</html>

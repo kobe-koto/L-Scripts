@@ -1,0 +1,32 @@
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif,system-ui;
+	text-align: center;
+}
+input {
+	width: 85%;
+}
+.xhr-container {
+	width: 90%;
+	height: 25px;
+	border-radius: 25px;
+	background: #eee;
+	overflow: hidden;
+	margin: auto auto 50px;
+}
+.xhr-progress {
+	height: inherit;
+	transition: width .2s linear;
+	width: 0;
+	background-color: #f68084;
+	background-image: linear-gradient(120deg, #f68084 0%, #a6c0fe 100%);
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
+#PleaseWait {
+	text-align: center;
+}
+#video {
+	width: 85%;
+}

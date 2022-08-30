@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <title>A demo for load-progress & Blob Link.</title>
+  <link rel="stylesheet" href="./assets/main.css">
+</head>
+<body>
+  <h3>A demo for load-progress.</h3>
+  <br/>
+  <label for="vURL">
+    <input placeholder="Please input your VideoURL here" id="vURL"/>
+    <button onclick="LoadVideo(document.getElementById('vURL').value)">Submit!!!</button>
+  </label>
+  <br/><br/>
+  <video id="video" controls width="100%" data-setup="{}">
+    <p title="NoJavaScriptWarn">To view this, video please enable JavaScript, and upgrade your web browser. </p>
+  </video>
+  <p id="PleaseWait">Submit a new video URL first!</p>
+
+  <div class="xhr-container">
+    <div id="xhr-progress" class="xhr-progress"></div>
+  </div>
+
+  <script src="./assets/main.js"></script>
+</body>
+</html>
