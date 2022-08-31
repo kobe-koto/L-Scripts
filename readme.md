@@ -33,3 +33,10 @@
 
 用於解析 Powerful Pixiv Downloader 生成的抓取結果, 支支持單個作品 (應該吧?).
 自動將Powerful Pixiv Downloader 生成的抓取結果中的圖片原始鏈接替換爲 PixivRe 的源
+
+---
+
+> ./GenCounter
+
+用於生成計數君的小東西, 
+在我自己的Blog裏面用的.
