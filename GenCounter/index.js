@@ -1,18 +1,45 @@
-function GenCounter (ElementID,ThemeID,MinLength) {
-    /* ElementID   的innerHTML内容必須為純數字。
+var ThemeID = "rule34",
+    ImgCDN = "https://fastly.jsdelivr.net/gh/journey-ad/Moe-counter/assets/theme/",
+    /* 這是我博客内的東西, 你要自己去Config啦, 當然我是建議你自己加到你的footer或者什麽地方，實在是搞不掂在用Inject. :D */
+    HTML2Inject =
+        `<is-i class="φce" id="busuanzi_container_site_pv" style="display: none;">` +
+        `<div class="φch" style="text-align: center;padding-bottom: 1.5rem;">` +
+        `<h3 class="φcl" style="padding: 1.5rem">` +
+        `Total Hits` +
+        `</h3>` +
+        `<div id="busuanzi_value_site_pv"></div>` +
+        `<h3 class="φcl" style="padding: 1.5rem">` +
+        `Total Viewers` +
+        `</h3>` +
+        `<div id="busuanzi_value_site_uv"></div>` +
+        `</div>` +
+        `</is-i>`,
+    Element2Inject = "document.querySelector('main')",
+
+    /*
+     * 這個東西用於決定你的busuanzi加載完成之後給你的container修改到的Display樣式。
+     * busuanzi 官方給到的是inline。
+     */
+    DisplayStyle = "block"
+;
+
+var bszCaller, bszTag;
+function GenCounter (Content,ThemeID,MinLength) {
+    /* Content     必須為純數字!
      * ThemeID     選取詳見 GitHub/journey-ad/Moe-counter 。
      * MinLength   為位數，自動補0，設定為false不啓用(NaN的話也不會啓用)。
      */
+    if (isNaN(Content)) {
+        throw ("Not a Number, task terminated. Content is: " + Content)
+    }
     let ReturnValue = "";
     for (let i=0;
-         i<document.getElementById(ElementID).innerHTML.split("").length;
+         i<Content.toString().split("").length;
          i++
     ){
         ReturnValue +=
-            "<img alt=\"\" src=\"https://cros-cf.ooze.gq/?https://github.com/journey-ad/Moe-counter/raw/master/assets/theme/"+
-            ThemeID+
-            "/" +
-            document.getElementById(ElementID).innerHTML.split("")[i] +
+            "<img alt=\"\" src=\"" + ImgCDN + ThemeID+ "/" +
+            Content.toString().split("")[i] +
             ".gif\">"
     }
     if (MinLength && !isNaN(MinLength)) {
@@ -23,42 +50,99 @@ function GenCounter (ElementID,ThemeID,MinLength) {
                     let value = "";
                     for (let i=0;i<ValueToFill;i++) {
                         value +=
-                            "<img alt=\"\" src=\"https://cros-cf.ooze.gq/?https://github.com/journey-ad/Moe-counter/raw/master/assets/theme/"+
+                            "<img alt=\"\" src=\""+ImgCDN+
                             ThemeID+
                             "/0.gif\">"
                     }
                     return value;
                 })()
-            + ReturnValue;
+                + ReturnValue;
         }
     }
     return ReturnValue;
 }
+! function() {
+    var c, d, e, a = !1,
+        b = [];
+    ready = function(c) {
+        return a || "complete" === document.readyState ? c.call(document) : b.push(function() {
+            return c.call(this)
+        }), this
+    }, d = function() {
+        for (var a = 0, c = b.length; c > a; a++) b[a].apply(document);
+        b = []
+    }, e = function() {
+        a || (a = !0, d.call(window), document.removeEventListener ? document.removeEventListener("DOMContentLoaded", e, !1) : document.attachEvent && (document.detachEvent("onreadystatechange", e), window == window.top && (clearInterval(c), c = null)))
+    }, document.addEventListener ? document.addEventListener("DOMContentLoaded", e, !1) : document.attachEvent && (document.attachEvent("onreadystatechange", function() {
+        /loaded|complete/.test(document.readyState) && e()
+    }), window == window.top && (c = setInterval(function() {
+        try {
+            a || document.documentElement.doScroll("left")
+        } catch (b) {
+            return
+        }
+        e()
+    }, 5)))
+}(), bszCaller = {
+    fetch: function(a, b) {
+        var c = "BusuanziCallback_" + Math.floor(1099511627776 * Math.random());
+        window[c] = this.evalCall(b), a = a.replace("=BusuanziCallback", "=" + c), scriptTag = document.createElement("SCRIPT"), scriptTag.type = "text/javascript", scriptTag.defer = !0, scriptTag.src = a, scriptTag.referrerPolicy = "no-referrer-when-downgrade", document.getElementsByTagName("HEAD")[0].appendChild(scriptTag)
+    },
+    evalCall: function(a) {
+        return function(b) {
+            ready(function() {
+                try {
+                    a(b), scriptTag.parentElement.removeChild(scriptTag)
+                } catch (c) {
+                    bszTag.hides()
+                }
+            })
+        }
+    }
+}, bszCaller.fetch("//busuanzi.ibruce.info/busuanzi?jsonpCallback=BusuanziCallback", function(a) {
+    bszTag.Inject(), bszTag.texts(a), bszTag.shows()
+}), bszTag = {
+    bszs: ["site_pv", "page_pv", "site_uv"],
+    texts: function(a) {
+        this.bszs.map(function(b) {
+            try {
+                window.BusuanziMoeCounter["busuanzi_value_" + b] = {};
+                window.BusuanziMoeCounter["busuanzi_value_" + b].id = "busuanzi_value_" + b;
+                window.BusuanziMoeCounter["busuanzi_value_" + b].content = + a[b];
+            } catch (e) {}
+        })
+    },
+    Inject: function () {
+        try {
+            Function(Element2Inject + ".innerHTML += '" + HTML2Inject + "'")();
+        } catch (e) {}
+        window.BusuanziMoeCounter = [];
+    },
+    hides: function() {
+        this.bszs.map(function(a) {
+            var b = document.getElementById("busuanzi_container_" + a);
+            b && (b.style.display = "none")
+        })
+    },
+    shows: function() {
 
-let CountLength;
-if (
-    document.getElementById("busuanzi_value_site_uv").innerHTML.length
-    <=
-    document.getElementById("busuanzi_value_site_pv").innerHTML.length
-) {
-    CountLength=document.getElementById("busuanzi_value_site_pv").innerHTML.length;
-} else {
-    CountLength=document.getElementById("busuanzi_value_site_uv").innerHTML.length;
-}
+        for (var b in window.BusuanziMoeCounter) {
+            //window.BusuanziMoeCounter[b].id
+            try {
+                document.getElementById(window.BusuanziMoeCounter[b].id).innerHTML =
+                    GenCounter(
+                        window.BusuanziMoeCounter[b].content,
+                        ThemeID,
+                        window.BusuanziMoeCounter["busuanzi_value_site_pv"].content.toString().length
+                    );
+            } catch (e) {}
+        }
 
-let pv= GenCounter("busuanzi_value_site_pv","rule34",CountLength);
-let uv= GenCounter("busuanzi_value_site_uv","rule34",CountLength);
+        this.bszs.map(function(a,) {
+            var b = document.getElementById("busuanzi_container_" + a);
+            b && (b.style.display = DisplayStyle)
+        })
 
-document.getElementsByClassName("φm")[0].getElementsByClassName("φeu")[0].innerHTML+=
-    `<is-i class="φce">
-       <div class="φch" style="text-align: center;">
-         <h3 class="φcl" style="padding: 1.5rem">
-           Total Hits
-         </h3>
-         `+pv+`
-         <h3 class="φcl" style="padding: 1.5rem">
-           Total Viewers
-         </h3>
-         `+uv+`
-       </div>
-     </is-i>`
+    }
+
+};
