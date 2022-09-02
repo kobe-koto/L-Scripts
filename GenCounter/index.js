@@ -4,7 +4,7 @@ var ThemeID = "rule34",
     HTML2Inject =
         `<main class="φm">`+
         `<is-i class="φce" id="busuanzi_container_site_pv" style="display: none;">` +
-        `<div class="φch" style="text-align: center;padding-bottom: 1.5rem;">` +
+        `<div class="φch" style="text-align: center;">` +
         `<h3 class="φcl" style="padding: 1.5rem">` +
         `Total Hits` +
         `</h3>` +
@@ -13,6 +13,7 @@ var ThemeID = "rule34",
         `Total Viewers` +
         `</h3>` +
         `<div id="busuanzi_value_site_uv"></div>` +
+        `<h6 style="padding: 1.5rem 0;margin: 0;">Powered by <a target="_blank" href="//busuanzi.ibruce.info/">Busuanzi</a>, but <a target="_blank" href="//github.com/kobe-koto/L-Scripts/tree/main/GenCounter">hooked by kobe-koto</a>.</h6>`+
         `</div>` +
         `</is-i>`+
         `</main>`,
