@@ -2,6 +2,7 @@ var ThemeID = "rule34",
     ImgCDN = "https://fastly.jsdelivr.net/gh/journey-ad/Moe-counter/assets/theme/",
     /* 這是我博客内的東西, 你要自己去Config啦, 當然我是建議你自己加到你的footer或者什麽地方，實在是搞不掂在用Inject. :D */
     HTML2Inject =
+        `<main class="φm">`+
         `<is-i class="φce" id="busuanzi_container_site_pv" style="display: none;">` +
         `<div class="φch" style="text-align: center;padding-bottom: 1.5rem;">` +
         `<h3 class="φcl" style="padding: 1.5rem">` +
@@ -13,15 +14,18 @@ var ThemeID = "rule34",
         `</h3>` +
         `<div id="busuanzi_value_site_uv"></div>` +
         `</div>` +
-        `</is-i>`,
-    Element2Inject = "document.querySelector('main')",
+        `</is-i>`+
+        `</main>`,
+    Element2Inject = "document.getElementsByClassName('φn')[0]",
 
     /*
      * 這個東西用於決定你的busuanzi加載完成之後給你的container修改到的Display樣式。
      * busuanzi 官方給到的是inline。
      */
-    DisplayStyle = "block"
+    DisplayStyle = "block",
+    InjectSpan = document.createElement("span")
 ;
+InjectSpan.innerHTML = HTML2Inject;
 
 var bszCaller, bszTag;
 function GenCounter (Content,ThemeID,MinLength) {
@@ -114,7 +118,7 @@ function GenCounter (Content,ThemeID,MinLength) {
     },
     Inject: function () {
         try {
-            Function(Element2Inject + ".innerHTML += '" + HTML2Inject + "'")();
+            Function(Element2Inject + ".appendChild(InjectSpan)")();
         } catch (e) {}
         window.BusuanziMoeCounter = [];
     },
@@ -127,7 +131,6 @@ function GenCounter (Content,ThemeID,MinLength) {
     shows: function() {
 
         for (var b in window.BusuanziMoeCounter) {
-            //window.BusuanziMoeCounter[b].id
             try {
                 document.getElementById(window.BusuanziMoeCounter[b].id).innerHTML =
                     GenCounter(

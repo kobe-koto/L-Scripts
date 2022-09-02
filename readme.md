@@ -32,7 +32,7 @@
 > ./PowerfulPixivDownloaderParser
 
 用於解析 Powerful Pixiv Downloader 生成的抓取結果, 支支持單個作品 (應該吧?).
-自動將Powerful Pixiv Downloader 生成的抓取結果中的圖片原始鏈接替換爲 PixivRe 的源
+自動將 Powerful Pixiv Downloader 生成的抓取結果中的圖片原始鏈接替換爲 PixivRe 的源
 
 ---
 
